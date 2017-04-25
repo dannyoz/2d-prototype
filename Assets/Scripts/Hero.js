@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-public var moveSpeed = 55;
+var moveSpeed = 16;
 
 function start() {
 	// print("hello");
