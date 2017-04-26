@@ -4,7 +4,7 @@ var moveSpeed: float = 16;
 var fireRate: float = 0.5;
 var bullet: GameObject;
 var bulletThrust: float = 100;
-var distance = 10.0;
+var distance: float = 10.0;
 
 private var nextFire: float = 0.5;
 private var newBullet: GameObject;
@@ -40,16 +40,12 @@ function handlePrimary() {
 	print("Primary weapon used");
 
 	nextFire = myTime + fireRate;
-	newBullet = Instantiate(bullet, transform.position, transform.rotation);
 
-	// create code here that animates the newProjectile
-
-		//  var position = Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
-        //  position = Camera.main.ScreenToWorldPoint(position);
-        //  newBullet.transform.LookAt(position);    
-        //  Debug.Log(position);    
-        //  newBullet.GetComponent.<Rigidbody2D>().AddForce(newBullet.transform.forward * bulletThrust);
-
+	var position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+	var direction = Camera.main.ScreenToWorldPoint(position);
+	bullet = Instantiate(bullet, transform.position, transform.rotation);   
+	bullet.GetComponent.<Rigidbody2D>().velocity = direction * bulletThrust;
+	
 	nextFire = nextFire - myTime;
 	myTime = 0.0;
 }
