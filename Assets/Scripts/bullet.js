@@ -1,14 +1,10 @@
 ﻿#pragma strict
 
-function Start () {
-	
-}
+var power : float = 10;
 
-function Update () {
-	
-}
-
-function OnCollisionEnter (col : Collision) {
-    print("bullet hit");
-    Destroy(col.gameObject);
+function OnCollisionEnter2D (col : Collision2D) {
+    if(col.gameObject.tag == "Enemy") {
+        print(col.gameObject);
+        col.gameObject.SendMessage("reduceHealth", power);
+    }
 }

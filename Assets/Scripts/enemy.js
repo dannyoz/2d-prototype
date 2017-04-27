@@ -1,13 +1,12 @@
 ﻿#pragma strict
 
-function Start () {
-
+function reduceHealth(loss : float) {
+    print(loss);
 }
 
-function Update () {
-	
-}
+// function OnCollisionEnter2D (col : Collision2D) {
+//     if(col.gameObject.tag == "Projectile") {
+//         Destroy(col.gameObject);
+//     }
+// }
 
-function OnCollisionEnter (col : Collision) {
-    print("hit");
-}

@@ -5,6 +5,8 @@ var fireRate: float = 0.5;
 var bullet: GameObject;
 var bulletThrust: float = 10;
 
+private var primaryIndex : int = 0;
+
 function Update() {
 	handleMovement();
 
@@ -28,12 +30,15 @@ function handleMovement() {
 
 // Shoot primary weapon
 function handlePrimary() {
+	primaryIndex ++;
+
 	var position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 	var target = Camera.main.ScreenToWorldPoint(position);
 	var playerPos = new Vector2(transform.position.x, transform.position.y);
 	var direction = target - playerPos;
 	direction.Normalize();
-	bullet = Instantiate(bullet, transform.position, transform.rotation);   
+	bullet = Instantiate(bullet, transform.position, transform.rotation);
+	bullet.name = primaryIndex.ToString();   
 	bullet.GetComponent.<Rigidbody2D>().velocity = direction * bulletThrust;
 }
 
