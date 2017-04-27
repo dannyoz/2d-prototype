@@ -10,11 +10,11 @@ private var primaryIndex : int = 0;
 function Update() {
 	handleMovement();
 
-	if (Input.GetMouseButtonDown(0)) {
+	if (Input.GetMouseButton(0)) {
 		handlePrimary();
 	}
 
-	if (Input.GetMouseButtonDown(1)) {
+	if (Input.GetMouseButton(1)) {
 		handleSecondary();
 	}
 }
