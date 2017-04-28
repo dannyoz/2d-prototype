@@ -3,6 +3,7 @@
 var moveSpeed: float = 16;
 var bullet: GameObject;
 var bulletThrust: float = 85;
+var health: int = 100;
 
 @Range(0, 30)
 var fireRate: int = 15;
@@ -18,7 +19,11 @@ function Start() {
 function Update() {
 	handleMovement();
 
-	if (Input.GetMouseButton(0) && canFirePrimary) {
+	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0) {
+		firePrimary();
+	}
+
+	if (Input.GetMouseButtonDown(0) && fireRate == 0){
 		firePrimary();
 	}
 
@@ -63,7 +68,16 @@ function handleSecondary() {
 function invertRange(val: int) {
 	var floor: int = 0;
 	var ceil: int = 30;
-	var step: float = 0.025F;
+	var step: float = 0.02F;
 	var baseVal: float = ceil - val;
 	return baseVal * step;	
+}
+
+// Bitten by enemy
+function OnTriggerEnter2D(col: Collider2D) {
+	health -= 10;
+	print(health);
+	if (health < 0) {
+		Destroy(this.gameObject);
+	}
 }

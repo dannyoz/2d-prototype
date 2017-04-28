@@ -1,15 +1,14 @@
 ﻿#pragma strict
 
-var aPosition1 = new Vector2(3,3);
 var speed = 1;
 private var target : GameObject;
 
 function Update() {
+    target = GameObject.Find("Hero");
     shuffle();
 }
 
 function shuffle() {
-    target = GameObject.Find("Hero");
     var from = new Vector2(transform.position.x, transform.position.y);
     var to = new Vector2(target.transform.position.x, target.transform.position.y);
     var time = speed * Time.deltaTime;
@@ -21,8 +20,8 @@ function reduceHealth(loss : float) {
     Destroy(this.gameObject);
 }
 
-function OnCollisionEnter2D (col : Collision2D) {
-    if(col.gameObject.tag == "Projectile") {
-        print(col.gameObject);
-    }
-}
+// function OnTriggerEnter2D(col: Collider2D) {
+//     if(col.gameObject.tag == "Player") {
+//         print("lunch");
+//     }
+// }
