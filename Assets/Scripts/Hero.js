@@ -1,17 +1,25 @@
 ﻿#pragma strict
 
 var moveSpeed: float = 16;
-var fireRate: float = 0.5;
 var bullet: GameObject;
 var bulletThrust: float = 85;
 
+@Range(0, 30)
+var fireRate: int = 15;
+
 private var primaryIndex : int = 0;
+private var canFirePrimary : boolean = true;
+private var computedFire : float;
+
+function Start() {
+	computedFire = invertRange(fireRate);
+}
 
 function Update() {
 	handleMovement();
 
-	if (Input.GetMouseButton(0)) {
-		handlePrimary();
+	if (Input.GetMouseButton(0) && canFirePrimary) {
+		firePrimary();
 	}
 
 	if (Input.GetMouseButton(1)) {
@@ -30,8 +38,9 @@ function handleMovement() {
 }
 
 // Shoot primary weapon
-function handlePrimary() {
+function firePrimary() {
 	primaryIndex ++;
+	canFirePrimary = false;
 	
 	var position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 	var target = Camera.main.ScreenToWorldPoint(position);
@@ -42,8 +51,19 @@ function handlePrimary() {
 	var newBullet = Instantiate(bullet, transform.position, transform.rotation);
 	newBullet.name = primaryIndex.ToString(); 
 	newBullet.GetComponent.<Rigidbody2D>().velocity = direction * bulletThrust;
+	yield WaitForSeconds(computedFire);
+	canFirePrimary = true;
 }
 
 function handleSecondary() {
 	print("Secondary weapon used");
+}
+
+
+function invertRange(val: int) {
+	var floor: int = 0;
+	var ceil: int = 30;
+	var step: float = 0.025F;
+	var baseVal: float = ceil - val;
+	return baseVal * step;	
 }
