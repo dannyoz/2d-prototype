@@ -1,10 +1,15 @@
 ﻿#pragma strict
 
+@Range(0, 50)
+var health: int = 25;
+
+@Range(1, 10)
 var speed = 1;
-private var target : GameObject;
+
+private var player : GameObject;
 
 function Start() {
-    target = GameObject.FindWithTag("Player");
+    player = GameObject.FindWithTag("Player");
 }
 
 function Update() {
@@ -13,14 +18,16 @@ function Update() {
 
 function shuffle() {
     var from = new Vector2(transform.position.x, transform.position.y);
-    var to = new Vector2(target.transform.position.x, target.transform.position.y);
+    var to = new Vector2(player.transform.position.x, player.transform.position.y);
     var time = speed * Time.deltaTime;
     transform.position = Vector2.MoveTowards(from, to, time);
 }
 
 function reduceHealth(loss : float) {
-    print(loss);
-    Destroy(this.gameObject);
+    health -= loss;
+    if (health < 1) {
+        Destroy(this.gameObject);
+    }
 }
 
 function OnTriggerEnter2D(col: Collider2D) {

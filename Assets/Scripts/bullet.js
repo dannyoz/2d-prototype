@@ -18,7 +18,8 @@ function Update() {
 function OnCollisionEnter2D (col : Collision2D) {
     if(col.gameObject.tag == "Enemy") {
         print(col.gameObject);
-        col.gameObject.SendMessage("reduceHealth", power);
+        var enemy = col.gameObject.GetComponent(enemy);
+        enemy.reduceHealth(power);
         Destroy(this.gameObject);
     }
 }
