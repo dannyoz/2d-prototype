@@ -2,6 +2,7 @@
 
 var moveSpeed: float = 16;
 var bullet: GameObject;
+var UImessage: GameObject;
 var bulletThrust: float = 85;
 var health: int = 100;
 
@@ -11,6 +12,7 @@ var fireRate: int = 15;
 private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
 private var computedFire : float;
+private var alive : boolean = true;
 
 function Start() {
 	computedFire = invertRange(fireRate);
@@ -18,19 +20,19 @@ function Start() {
 
 function Update() {
 
-	if (health > 0) {
+	if (alive) {
 		handleMovement();
 	}
 
-	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0) {
+	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0 && alive) {
 		firePrimary();
 	}
 
-	if (Input.GetMouseButtonDown(0) && fireRate == 0){
+	if (Input.GetMouseButtonDown(0) && fireRate == 0 && alive){
 		firePrimary();
 	}
 
-	if (Input.GetMouseButton(1)) {
+	if (Input.GetMouseButtonDown(1) && alive) {
 		handleSecondary();
 	}
 }
@@ -82,7 +84,9 @@ function OnTriggerEnter2D(col: Collider2D) {
 		health -= 10;
 		print(health);
 		if (health < 0) {
-			Destroy(this.gameObject);
+			alive = false;
+			var message = Instantiate(UImessage, transform.position, transform.rotation);
+			message.GetComponent(UImessages).endGame("test");
 		}
 	}
 }
