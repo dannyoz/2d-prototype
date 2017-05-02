@@ -3,8 +3,11 @@
 var speed = 1;
 private var target : GameObject;
 
+function Start() {
+    target = GameObject.FindWithTag("Player");
+}
+
 function Update() {
-    target = GameObject.Find("Hero");
     shuffle();
 }
 
@@ -20,8 +23,8 @@ function reduceHealth(loss : float) {
     Destroy(this.gameObject);
 }
 
-// function OnTriggerEnter2D(col: Collider2D) {
-//     if(col.gameObject.tag == "Player") {
-//         print("lunch");
-//     }
-// }
+function OnTriggerEnter2D(col: Collider2D) {
+    if(col.gameObject.tag == "Player") {
+        print("lunch");
+    }
+}

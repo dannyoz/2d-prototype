@@ -17,7 +17,10 @@ function Start() {
 }
 
 function Update() {
-	handleMovement();
+
+	if (health > 0) {
+		handleMovement();
+	}
 
 	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0) {
 		firePrimary();
@@ -75,9 +78,11 @@ function invertRange(val: int) {
 
 // Bitten by enemy
 function OnTriggerEnter2D(col: Collider2D) {
-	health -= 10;
-	print(health);
-	if (health < 0) {
-		Destroy(this.gameObject);
+	if(col.gameObject.tag == "Enemy") {
+		health -= 10;
+		print(health);
+		if (health < 0) {
+			Destroy(this.gameObject);
+		}
 	}
 }
