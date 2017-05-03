@@ -4,9 +4,10 @@
 var health: int = 25;
 
 @Range(1, 10)
-var speed = 1;
+var speed: float = 1;
 
 private var player : GameObject;
+private var speedVar : float = 0.7; 
 
 function Start() {
     player = GameObject.FindWithTag("Player");
@@ -19,7 +20,8 @@ function Update() {
 function shuffle() {
     var from = new Vector2(transform.position.x, transform.position.y);
     var to = new Vector2(player.transform.position.x, player.transform.position.y);
-    var time = speed * Time.deltaTime;
+    var randomSpeed = Random.Range(speed - speedVar, speed + speedVar);
+    var time = randomSpeed * Time.deltaTime;
     transform.position = Vector2.MoveTowards(from, to, time);
 }
 
