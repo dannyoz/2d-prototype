@@ -9,6 +9,8 @@ var maxSpeed: float = 2.5;
 @Range(1, 10)
 var minSpeed: float = 1;
 
+var shuffleTrigger: float = 2;
+
 private var player : GameObject;
 private var randomSpeed : float;
 

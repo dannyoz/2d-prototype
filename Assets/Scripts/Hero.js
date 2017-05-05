@@ -2,7 +2,6 @@
 
 var moveSpeed: float = 16;
 var bullet: GameObject;
-var UImessage: GameObject;
 var bulletThrust: float = 85;
 var health: int = 100;
 
@@ -85,8 +84,6 @@ function OnTriggerEnter2D(col: Collider2D) {
 		print(health);
 		if (health < 0) {
 			alive = false;
-			var message = Instantiate(UImessage, transform.position, transform.rotation);
-			message.GetComponent(UImessages).endGame("test");
 		}
 	}
 }
