@@ -12,9 +12,12 @@ private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
 private var computedFire : float;
 private var alive : boolean = true;
+private var weapon: Weapon;
 
 function Start() {
 	computedFire = invertRange(fireRate);
+	weapon = new Weapon();
+	Debug.Log(weapon.shoot());
 }
 
 function Update() {
@@ -48,6 +51,7 @@ function handleMovement() {
 
 // Shoot primary weapon
 function firePrimary() {
+	Debug.Log(weapon.shoot());
 	primaryIndex ++;
 	canFirePrimary = false;
 	
@@ -62,6 +66,8 @@ function firePrimary() {
 	newBullet.GetComponent.<Rigidbody2D>().velocity = direction * bulletThrust;
 	yield WaitForSeconds(computedFire);
 	canFirePrimary = true;
+
+
 }
 
 function handleSecondary() {
