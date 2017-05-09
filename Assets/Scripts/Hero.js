@@ -11,23 +11,27 @@ var fireRate: int = 15;
 private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
 private var computedFire : float;
+private var alive : boolean = true;
 
 function Start() {
 	computedFire = invertRange(fireRate);
 }
 
 function Update() {
-	handleMovement();
 
-	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0) {
+	if (alive) {
+		handleMovement();
+	}
+
+	if (Input.GetMouseButton(0) && fireRate > 0 && alive) {
 		firePrimary();
 	}
 
-	if (Input.GetMouseButtonDown(0) && fireRate == 0){
+	if (Input.GetMouseButtonDown(0) && fireRate == 0 && alive){
 		firePrimary();
 	}
 
-	if (Input.GetMouseButton(1)) {
+	if (Input.GetMouseButtonDown(1) && alive) {
 		handleSecondary();
 	}
 }
@@ -58,6 +62,8 @@ function firePrimary() {
 	newBullet.GetComponent.<Rigidbody2D>().velocity = direction * bulletThrust;
 	yield WaitForSeconds(computedFire);
 	canFirePrimary = true;
+
+
 }
 
 function handleSecondary() {
@@ -75,9 +81,11 @@ function invertRange(val: int) {
 
 // Bitten by enemy
 function OnTriggerEnter2D(col: Collider2D) {
-	health -= 10;
-	print(health);
-	if (health < 0) {
-		Destroy(this.gameObject);
+	if(col.gameObject.tag == "Enemy") {
+		health -= 10;
+		print(health);
+		if (health < 0) {
+			alive = false;
+		}
 	}
 }
