@@ -12,18 +12,17 @@ private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
 private var computedFire : float;
 private var player : Player;
-
-function Start() {
-    computedFire = invertRange(fireRate);
-    Debug.Log(computedFire);
-}
+private var weapon : Weapon;
 
 function Awake (){
+    computedFire = invertRange(fireRate);
     player = GetComponent(Player);
+    weapon = GetComponent(Weapon);
+    Debug.Log(weapon.primary.name);
 }
 
 function Update () {
-	if (Input.GetMouseButton(0) && fireRate > 0 && player.alive) {
+	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0 && player.alive) {
 		firePrimary();
 	}
 
