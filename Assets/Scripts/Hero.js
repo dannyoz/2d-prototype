@@ -12,12 +12,9 @@ private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
 private var computedFire : float;
 private var alive : boolean = true;
-private var weapon: Weapon;
 
 function Start() {
 	computedFire = invertRange(fireRate);
-	weapon = new Weapon();
-	Debug.Log(weapon.shoot());
 }
 
 function Update() {
@@ -26,7 +23,7 @@ function Update() {
 		handleMovement();
 	}
 
-	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0 && alive) {
+	if (Input.GetMouseButton(0) && fireRate > 0 && alive) {
 		firePrimary();
 	}
 
@@ -51,7 +48,6 @@ function handleMovement() {
 
 // Shoot primary weapon
 function firePrimary() {
-	Debug.Log(weapon.shoot());
 	primaryIndex ++;
 	canFirePrimary = false;
 	
