@@ -18,7 +18,7 @@ function Awake (){
     computedFire = invertRange(fireRate);
     player = GetComponent(Player);
     weapon = GetComponent(Weapon);
-    Debug.Log(weapon.primary.name);
+    Debug.Log(weapon.primary.fireRate);
 }
 
 function Update () {

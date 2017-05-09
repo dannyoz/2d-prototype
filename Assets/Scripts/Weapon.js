@@ -18,7 +18,11 @@ public class Weapon extends MonoBehaviour {
             spread = sp;
             reload = rl;
         }
+
+        public function Weapon(nm: String) {
+            name = nm;
+        }
     }
 }
 
-public var primary = new Weapon("Shotgun", 5, 1, 8, 3, 4);
+public var primary = new Weapon("Shotgun");
