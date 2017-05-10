@@ -13,11 +13,13 @@ private var player : Player;
 private var weapon : Weapon;
 private var fireRate : int;
 private var clipSize: int;
+private var clipCount: int;
 
 function Start(){
     player = GetComponent(Player);
     weapon = GetComponent(Weapon);
     clipSize = weapon.primary.clipSize;
+    clipCount = weapon.primary.clipCount;
     fireRate = weapon.primary.fireRate;
     computedFire = invertRange(fireRate);
 }
@@ -59,9 +61,12 @@ function firePrimary() {
 
 function reload() {
     reloading = true;
-    yield WaitForSeconds(weapon.primary.reload);
-    reloading = false;
-    clipSize = weapon.primary.clipSize;
+    clipCount --;
+    if(clipCount > 0) {
+        yield WaitForSeconds(weapon.primary.reload);
+        reloading = false;
+        clipSize = weapon.primary.clipSize;
+    }
 }
 
 function automatic() {
@@ -69,7 +74,7 @@ function automatic() {
 }
 
 function singleShot() {
-    return fireRate == 0 && player.alive;
+    return fireRate == 0 && player.alive && !reloading && clipSize > 0;
 }
 
 function invertRange(val: int) {

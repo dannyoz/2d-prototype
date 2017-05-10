@@ -25,6 +25,7 @@ public class Weapon extends MonoBehaviour {
         public var power;
         public var fireRate;
         public var clipSize;
+        public var clipCount;
         public var spread;
         public var reload;
 
@@ -33,21 +34,9 @@ public class Weapon extends MonoBehaviour {
             power = 10;
             fireRate = 29;
             clipSize = 30;
+            clipCount = 5;
             spread = 0;
             reload = 0.8F;
-        }
-
-        public function Weapon(nm: String, pw: int, fr: int, cs: int, sp: int, rl: int) {
-            name = nm;
-            power = pw;
-            fireRate = fr;
-            clipSize = cs;
-            spread = sp;
-            reload = rl;
-        }
-
-        public function Weapon(nm: String) {
-            name = nm;
         }
 
         public function select(savedData: String) {
