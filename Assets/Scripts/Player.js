@@ -5,13 +5,12 @@ import UnityEngine.UI;
 public var health: int = 100;
 public var alive : boolean = true;
 public var textField : UI.Text;
-// private var primary : Weapon;
-// private var weapon : Weapon;
+
+private var weapon : Weapon;
 
 function Awake(){
-    // weapon = GetComponent(Weapon);
-    // primary = new Weapon();
-    // Debug.Log(weapon);
+    weapon = GetComponent(Weapon);
+    Debug.Log(weapon.primary.name);
 }
 
 // Bitten by enemy
@@ -22,8 +21,9 @@ function OnTriggerEnter2D(col: Collider2D) {
 
     if(col.gameObject.tag == "Weapon") {
         var weaponPickup = col.gameObject.GetComponent(WeaponPickup);
-        var weapon = weaponPickup.getWeapon();
-        print(weapon.fireRate);
+        var newWeapon = weaponPickup.getWeapon();
+        print(newWeapon.fireRate);
+        //primary = newWeapon;
 	}
 }
 

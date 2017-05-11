@@ -30,7 +30,7 @@ public class Weapon extends MonoBehaviour {
         public var reload;
 
         public function Weapon() {
-            name = "Assault rifle";
+            name = "Uzi 9mm";
             power = 10;
             fireRate = 29;
             clipSize = 30;
@@ -59,3 +59,5 @@ public class Weapon extends MonoBehaviour {
         // }
     }
 }
+
+public var primary: Weapon = new Weapon();
