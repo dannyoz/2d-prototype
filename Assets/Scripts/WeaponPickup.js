@@ -3,10 +3,11 @@
 enum weaponTypes { AssaultRifle, Shotgun }
 public var types : weaponTypes;
 public var weapon: WeaponPickup;
+public var sprite1: Sprite;
+public var sprite2: Sprite;
 
 function Start() {
     selectWeapon(types);
-    Debug.Log(weapon.fireRate);
 }
 
 public class WeaponPickup extends MonoBehaviour {
@@ -36,9 +37,15 @@ function selectWeapon( currenttypes : weaponTypes ) {
     switch (currenttypes) {
         case weaponTypes.AssaultRifle: 
             weapon = new WeaponPickup("Assault rifle", 10, 29, 30, 5, 0, 0.8F);
+            GetComponent(SpriteRenderer).sprite = sprite1;
             break;
         case weaponTypes.Shotgun: 
             weapon = new WeaponPickup("Shotgun", 30, 0, 8, 4, 3, 1.2F);
+            GetComponent(SpriteRenderer).sprite = sprite2;
             break;
     }
+}
+
+function getWeapon() {
+    return weapon;
 }

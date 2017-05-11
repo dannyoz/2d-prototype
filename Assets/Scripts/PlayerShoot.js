@@ -10,23 +10,21 @@ private var canFirePrimary : boolean = true;
 private var reloading: boolean = false;
 private var computedFire : float;
 private var player : Player;
-private var weapon : Weapon;
 private var fireRate : int;
 private var clipSize: int;
 private var clipCount: int;
 
 function Start(){
     player = GetComponent(Player);
-    weapon = GetComponent(Weapon);
-    clipSize = weapon.primary.clipSize;
-    clipCount = weapon.primary.clipCount;
-    fireRate = weapon.primary.fireRate;
+    clipSize = 5;
+    clipCount = 5;
+    fireRate = 20;
     computedFire = invertRange(fireRate);
 }
 
 function Update() {
 
-    // Automatic weapon
+    // Automatic player
 	if (Input.GetMouseButton(0) && automatic()) {
 		firePrimary();
 	}
@@ -63,9 +61,9 @@ function reload() {
     reloading = true;
     clipCount --;
     if(clipCount > 0) {
-        yield WaitForSeconds(weapon.primary.reload);
+        yield WaitForSeconds(0.8F);
         reloading = false;
-        clipSize = weapon.primary.clipSize;
+        clipSize = 5;
     }
 }
 
