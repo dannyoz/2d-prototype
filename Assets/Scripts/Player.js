@@ -10,7 +10,6 @@ private var weapon : Weapon;
 
 function Awake(){
     weapon = GetComponent(Weapon);
-    Debug.Log(weapon.primary.name);
 }
 
 // Bitten by enemy
@@ -21,9 +20,8 @@ function OnTriggerEnter2D(col: Collider2D) {
 
     if(col.gameObject.tag == "Weapon") {
         var weaponPickup = col.gameObject.GetComponent(WeaponPickup);
-        var newWeapon = weaponPickup.getWeapon();
-        print(newWeapon.fireRate);
-        //primary = newWeapon;
+        var w = weaponPickup.getWeapon();
+        weapon.switchWeapon(w.name, w.power, w.fireRate, w.clipSize, w.clipCount, w.spread, w.reload);
 	}
 }
 
