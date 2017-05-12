@@ -8,20 +8,18 @@ public var bulletThrust: float = 85;
 private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
 private var reloading: boolean = false;
-private var computedFire : float;
 private var player : Player;
 private var weapon : Weapon;
-private var fireRate : int;
-private var clipSize: int;
+
+// TODO: this may need to be re-instantiated on weapon switch
 private var clipCount: int;
+private var clipSize: int;
 
 function Start(){
     player = GetComponent(Player);
     weapon = GetComponent(Weapon);
-    clipSize = weapon.primary.clipSize;
     clipCount = weapon.primary.clipCount;
-    fireRate = weapon.primary.fireRate;
-    computedFire = invertRange(fireRate);
+    clipSize = weapon.primary.clipSize;
 }
 
 function Update() {
@@ -42,10 +40,15 @@ function firePrimary() {
     clipSize --;
 	canFirePrimary = false;
 	
+    // Directional vars
 	var position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 	var target = Camera.main.ScreenToWorldPoint(position);
 	var playerPos = new Vector2(transform.position.x, transform.position.y);
 	var direction = target - playerPos;
+
+    // Weapon vars
+    var fireRate = weapon.primary.fireRate;
+    var computedFire = invertRange(fireRate);
 
 	direction.Normalize();
 	var newBullet = Instantiate(bullet, transform.position, transform.rotation);
@@ -70,10 +73,14 @@ function reload() {
 }
 
 function automatic() {
+    var fireRate: int = weapon.primary.fireRate;
+    var clipSize: int = weapon.primary.clipSize;
     return canFirePrimary && fireRate > 0 && player.alive && !reloading && clipSize > 0;
 }
 
 function singleShot() {
+    var fireRate: int = weapon.primary.fireRate;
+    var clipSize: int = weapon.primary.clipSize;
     return fireRate == 0 && player.alive && !reloading && clipSize > 0;
 }
 
