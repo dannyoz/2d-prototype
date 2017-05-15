@@ -1,0 +1,8 @@
+{
+    "name": "Shotgun",
+    "power": 2,
+    "fireRate": 2,
+    "clipSize": 2,
+    "spread": 2,
+    "reload": 2
+}

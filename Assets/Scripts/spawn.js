@@ -4,7 +4,7 @@ var delay: float = 0;
 var interval: float = 2.5;
 var enemy: GameObject;
 
-@Range(1, 150)
+@Range(0, 150)
 var count: int = 100;
 private var spawns: int = 0;
 

@@ -7,18 +7,34 @@ public class Weapon extends MonoBehaviour {
         public var power;
         public var fireRate;
         public var clipSize;
+        public var clipCount;
         public var spread;
         public var reload;
 
-        public function Weapon(nm: String, pw: int, fr: int, cs: int, sp: int, rl: int) {
+        public function Weapon() {
+            name = "Pistol";
+            power = 5;
+            fireRate = 18;
+            clipSize = 10;
+            clipCount = 10;
+            spread = 0;
+            reload = 0.8F;
+        }
+
+        public function Weapon(nm: String, pw: int, fr: int, cs: int, cc: int, sp:int, rl: float) {
             name = nm;
             power = pw;
             fireRate = fr;
             clipSize = cs;
+            clipCount = cc;
             spread = sp;
             reload = rl;
         }
     }
 }
 
-public var primary = new Weapon("Shotgun", 5, 1, 8, 3, 4);
+public var primary: Weapon = new Weapon();
+
+public function switchWeapon(nm, pw, fr, cs, cc, sp, rl) {
+    primary = new Weapon(nm, pw, fr, cs, cc, sp, rl);
+}

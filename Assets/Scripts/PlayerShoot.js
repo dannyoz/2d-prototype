@@ -5,40 +5,50 @@ public var bullet: GameObject;
 @Range(0, 100)
 public var bulletThrust: float = 85;
 
-@Range(0, 30)
-public var fireRate: int = 15;
-
 private var primaryIndex : int = 0;
 private var canFirePrimary : boolean = true;
-private var computedFire : float;
+private var reloading: boolean = false;
 private var player : Player;
 private var weapon : Weapon;
 
-function Awake (){
-    computedFire = invertRange(fireRate);
+// TODO: this may need to be re-instantiated on weapon switch
+private var clipCount: int;
+private var clipSize: int;
+
+function Start(){
     player = GetComponent(Player);
     weapon = GetComponent(Weapon);
-    Debug.Log(weapon.primary.name);
+    clipCount = weapon.primary.clipCount;
+    clipSize = weapon.primary.clipSize;
 }
 
-function Update () {
-	if (Input.GetMouseButton(0) && canFirePrimary && fireRate > 0 && player.alive) {
+function Update() {
+
+    // Automatic player
+	if (Input.GetMouseButton(0) && automatic()) {
 		firePrimary();
 	}
 
-	if (Input.GetMouseButtonDown(0) && fireRate == 0 && player.alive){
+    // Semi auto
+	if (Input.GetMouseButtonDown(0) && singleShot()){
 		firePrimary();
 	}
 }
 
 function firePrimary() {
 	primaryIndex ++;
+    clipSize --;
 	canFirePrimary = false;
 	
+    // Directional vars
 	var position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 	var target = Camera.main.ScreenToWorldPoint(position);
 	var playerPos = new Vector2(transform.position.x, transform.position.y);
 	var direction = target - playerPos;
+
+    // Weapon vars
+    var fireRate = weapon.primary.fireRate;
+    var computedFire = invertRange(fireRate);
 
 	direction.Normalize();
 	var newBullet = Instantiate(bullet, transform.position, transform.rotation);
@@ -46,8 +56,33 @@ function firePrimary() {
 	newBullet.GetComponent.<Rigidbody2D>().velocity = direction * bulletThrust;
 	yield WaitForSeconds(computedFire);
 	canFirePrimary = true;
+
+    if(clipSize == 0){
+        reload();
+    } 
 }
 
+function reload() {
+    reloading = true;
+    clipCount --;
+    if(clipCount > 0) {
+        yield WaitForSeconds(weapon.primary.reload);
+        reloading = false;
+        clipSize = weapon.primary.clipSize;
+    }
+}
+
+function automatic() {
+    var fireRate: int = weapon.primary.fireRate;
+    var clipSize: int = weapon.primary.clipSize;
+    return canFirePrimary && fireRate > 0 && player.alive && !reloading && clipSize > 0;
+}
+
+function singleShot() {
+    var fireRate: int = weapon.primary.fireRate;
+    var clipSize: int = weapon.primary.clipSize;
+    return fireRate == 0 && player.alive && !reloading && clipSize > 0;
+}
 
 function invertRange(val: int) {
 	var floor: int = 0;
