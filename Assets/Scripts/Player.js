@@ -5,6 +5,7 @@ import UnityEngine.UI;
 public var health: int = 100;
 public var alive : boolean = true;
 public var textField : UI.Text;
+public var debug : UI.Text;
 
 private var weapon : Weapon;
 
@@ -22,6 +23,7 @@ function OnTriggerEnter2D(col: Collider2D) {
         var weaponPickup = col.gameObject.GetComponent(WeaponPickup);
         var w = weaponPickup.getWeapon();
         weapon.switchWeapon(w.name, w.power, w.fireRate, w.clipSize, w.clipCount, w.spread, w.reload);
+        debug.text = "weapon name" + w.name;
 	}
 }
 
