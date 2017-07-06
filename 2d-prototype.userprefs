@@ -1,12 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerShoot.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.js">
     <Files>
       <File FileName="Assets/Scripts/Hero.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/mainCamera.js" Line="19" Column="1" />
       <File FileName="Assets/Scripts/bullet.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Weapon.js" Line="13" Column="1" />
-      <File FileName="Assets/Scripts/PlayerShoot.js" Line="21" Column="1" />
+      <File FileName="Assets/Scripts/PlayerShoot.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player.js" Line="37" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
